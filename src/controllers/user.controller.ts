@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { request } from "http";
-import { userCreateService, userSelfService, userTotalService } from "../services";
+import { userCreateService, userDeleteService, userSelfService, userTotalService, userUpdateService } from "../services";
 
 export const userCreateController = async (req: Request, res: Response) => {
 
@@ -13,9 +12,10 @@ export const userCreateController = async (req: Request, res: Response) => {
     } catch(err) {
 
         if (err instanceof Error) {
+
             return res.status(400).send({
                     "error": err.name,
-                    "message": err.name
+                    "message": err.message
                 })
             }
         }
@@ -32,7 +32,7 @@ export const userTotalController = async (req: Request, res: Response) => {
         if(err instanceof Error) {
             return res.status(400).send({
                 "error": err.name,
-                "message": err.name
+                "message": err.message
             })
         }
     }
@@ -40,7 +40,56 @@ export const userTotalController = async (req: Request, res: Response) => {
 
 export const userSelfController = async (req: Request, res: Response) => {
     
-    const { id } = req.params
-    const self = await userSelfService(id)
-    return res.status(200).send(self)
+    try {
+        const { id } = req.params
+        const self = await userSelfService(id)
+        return res.status(200).send(self) 
+
+    } catch(err) {
+
+        if(err instanceof Error) {
+            return res.status(400).send({
+                "error": err.name,
+                "message": err.message
+            })
+        }
+    }
+}
+
+export const userUpdateController = async (req: Request, res: Response) => {
+
+    try {
+        const { id } = req.params
+        const { age, name, email } = req.body
+        const self = await userUpdateService(id, age, name, email)
+        return res.status(200).send(self)
+    
+    } catch(err) {
+
+        if(err instanceof Error) {
+            return res.status(400).send({
+                "error": err.name,
+                "message": err.message
+            })
+        }
+    }
+    }
+
+export const userDeleteController = async (req: Request, res: Response) => {
+    
+    try {
+
+        const { id } = req.params
+        const self = await userDeleteService(id)
+        return res.status(200).json({message: "user sucessfully deleted"})
+    
+    } catch(err) {
+        
+        if(err instanceof Error) {
+            return res.status(400).send({
+                "error": err.name,
+                "message": err.message
+            })
+        }
+    }
 }

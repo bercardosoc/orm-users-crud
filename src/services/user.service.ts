@@ -26,3 +26,18 @@ export const userCreateService = async ({age, name, email, password}: IUserCreat
 
     return user 
 }
+
+export const userTotalService = async () => {
+    const userRepository = AppDataSource.getRepository(User)
+    const users = userRepository.find()
+    return users
+}
+
+export const userSelfService = async (id:string) => {
+    
+    const userRepository = AppDataSource.getRepository(User) 
+    const users = await userRepository.find()
+    const account = users.find(user => user.id === id)
+    return account  
+
+}

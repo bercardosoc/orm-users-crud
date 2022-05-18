@@ -1,3 +1,3 @@
-import { userCreateService } from "./user.service";
+import { userCreateService, userTotalService, userSelfService } from "./user.service";
 
-export { userCreateService }
+export { userCreateService, userTotalService, userSelfService }

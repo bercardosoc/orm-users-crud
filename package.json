@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev src/app.ts",
-    "typeorm": "typeorm-ts-node-commonjs" 
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "license": "MIT",
   "devDependencies": {
@@ -28,5 +28,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.12",
+    "cors": "^2.8.5"
   }
 }
